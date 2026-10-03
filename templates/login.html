@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Sign in | Daylight AI{% endblock %}
+{% block content %}
+<main class="auth-layout">
+  <section class="auth-story" aria-label="Daylight AI">
+    <a class="brand brand-light" href="/" aria-label="Daylight AI home"><span class="brand-mark">d</span>daylight<span class="brand-ai">/ai</span></a>
+    <div class="story-copy">
+      <span class="eyebrow">A little more room to think</span>
+      <h1>Good ideas like a little daylight.</h1>
+      <p>A calm corner for fresh perspectives, small experiments, and whatever you want to make next.</p>
+    </div>
+    <div class="story-note"><span class="note-spark">✳</span><span>Make today a starting point.</span></div>
+    <span class="story-orbit orbit-one" aria-hidden="true"></span>
+    <span class="story-orbit orbit-two" aria-hidden="true"></span>
+  </section>
+  <section class="auth-panel">
+    <div class="auth-mobile-brand"><a class="brand" href="/"><span class="brand-mark">d</span>daylight<span class="brand-ai">/ai</span></a></div>
+    <div class="auth-form-wrap">
+      <div class="form-heading"><span class="eyebrow">Welcome back</span><h2>Pick up where you left off.</h2><p>Your next good idea is just around the corner.</p></div>
+      {% if error %}<div class="form-alert" role="alert">{{ error }}</div>{% endif %}
+      <form class="auth-form" method="post" action="/login">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254">
+        <div class="label-row"><label for="password">Password</label></div>
+        <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+        <button class="button button-primary button-full" type="submit">Sign in <span aria-hidden="true">↗</span></button>
+      </form>
+      <p class="auth-switch">New to Daylight? <a href="/register">Create an account</a></p>
+      <p class="auth-footnote">A thoughtful space for curious minds.</p>
+    </div>
+  </section>
+</main>
+{% endblock %}

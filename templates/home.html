@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Your daylight | Daylight AI{% endblock %}
+{% block content %}
+<div class="dashboard-shell">
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Daylight AI home"><span class="brand-mark">d</span>daylight<span class="brand-ai">/ai</span></a>
+    <nav class="topbar-actions" aria-label="Account">
+      <span class="welcome-label">A good day to begin, {{ user_name }}.</span>
+      <form method="post" action="/logout"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="button button-quiet" type="submit">Sign out <span aria-hidden="true">↗</span></button></form>
+    </nav>
+  </header>
+  <main>
+    <section class="dashboard-hero">
+      <div class="hero-content">
+        <span class="eyebrow eyebrow-light">YOUR DAILY DOSE OF POSSIBILITY</span>
+        <h1>What could you<br>make <em>today?</em></h1>
+        <p>A few fresh thoughts to get your mind moving. Take what you need, leave the rest.</p>
+        <form method="post" action="/api/ideas">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button class="button button-light" type="submit">✳ <span>Give me fresh ideas</span><span aria-hidden="true">↗</span></button>
+        </form>
+      </div>
+      <div class="hero-art" aria-hidden="true"><span class="sun-disc"></span><span class="sun-line line-a"></span><span class="sun-line line-b"></span><span class="sun-caption">A LITTLE<br>DAYLIGHT</span><span class="sun-dot"></span></div>
+      <span class="hero-index" aria-hidden="true">01 / 03</span>
+    </section>
+    <section class="ideas-section" aria-labelledby="ideas-heading">
+      <div class="section-heading"><div><span class="eyebrow">A place to start</span><h2 id="ideas-heading">Ideas for your day</h2></div><span class="idea-count">{{ ideas|length }} notes</span></div>
+      {% if notice %}<p class="notice" role="status">{{ notice }}</p>{% endif %}
+      {% if error %}<p class="notice notice-error" role="alert">{{ error }}</p>{% endif %}
+      {% if not ai_enabled %}<p class="demo-note">Your starting collection is ready. Add an AI API key to create a fresh set whenever you like.</p>{% endif %}
+      <div class="idea-grid">
+        {% for idea in ideas %}
+        <article class="idea-card idea-{{ idea.color }}">
+          <div class="idea-meta"><span>{{ idea.category }}</span><span class="idea-symbol" aria-hidden="true">✳</span></div>
+          <h3>{{ idea.title }}</h3>
+          <p>{{ idea.body }}</p>
+          <div class="idea-footer"><span>{{ idea.time }}</span><span class="idea-arrow" aria-hidden="true">↗</span></div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+  <footer class="dashboard-footer"><span>DAYLIGHT / AI</span><span>Small steps count, too.</span><span>Made for the in-between moments.</span></footer>
+</div>
+{% endblock %}

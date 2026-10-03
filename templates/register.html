@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Create account | Daylight AI{% endblock %}
+{% block content %}
+<main class="auth-layout">
+  <section class="auth-story" aria-label="Daylight AI">
+    <a class="brand brand-light" href="/" aria-label="Daylight AI home"><span class="brand-mark">d</span>daylight<span class="brand-ai">/ai</span></a>
+    <div class="story-copy">
+      <span class="eyebrow">Start with one small step</span>
+      <h1>There’s more than one way forward.</h1>
+      <p>Meet your new place to explore ideas, get unstuck, and find a next step that feels like yours.</p>
+    </div>
+    <div class="story-note"><span class="note-spark">✳</span><span>Curiosity, with a place to land.</span></div>
+    <span class="story-orbit orbit-one" aria-hidden="true"></span>
+    <span class="story-orbit orbit-two" aria-hidden="true"></span>
+  </section>
+  <section class="auth-panel">
+    <div class="auth-mobile-brand"><a class="brand" href="/"><span class="brand-mark">d</span>daylight<span class="brand-ai">/ai</span></a></div>
+    <div class="auth-form-wrap">
+      <div class="form-heading"><span class="eyebrow">Your space starts here</span><h2>Create your account.</h2><p>Just the essentials. Your ideas can come later.</p></div>
+      {% if error %}<div class="form-alert" role="alert">{{ error }}</div>{% endif %}
+      <form class="auth-form" method="post" action="/register">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name" placeholder="How should we call you?" required minlength="2" maxlength="80">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required minlength="8" maxlength="72">
+        <button class="button button-primary button-full" type="submit">Create account <span aria-hidden="true">↗</span></button>
+      </form>
+      <p class="auth-switch">Already have an account? <a href="/login">Sign in</a></p>
+      <p class="auth-footnote">Your password is hashed before it is stored.</p>
+    </div>
+  </section>
+</main>
+{% endblock %}
